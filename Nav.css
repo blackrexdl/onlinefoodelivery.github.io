@@ -1,0 +1,95 @@
+@media (max-width: 991px) {
+    .navbar-scroll {
+      background-color: #901c1c;
+    } 
+  }
+  .logo1{
+    width: 250px;
+  }
+  .posted{
+    width: 130px ;
+    height: 99px;
+    padding-left: 20px;
+
+  }
+  .navbar-scrolled .navbar-brand,
+  .navbar-scrolled .nav-link,
+  .navbar-scrolled .fa-bars {
+    color: #4f4f4f;
+  }
+  .nav-link:hover {
+    color:white
+  }
+ .nav-link
+        {
+            color: #FFF;
+            text-decoration: none;
+            font: 20px Raleway;
+            margin: 0px 10px;
+            padding: 10px 10px;
+            position: relative;
+            z-index: 0;
+            cursor: pointer;
+        }
+      /* Top and Bottom borders go out */
+      .nav-link:before,  .nav-link:after
+        {
+            position: absolute;
+            left: 0px;
+            width: 100%;
+            height: 2px;
+            background: #FFF;
+            content: "";
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:before
+        {
+            top: 0px;
+            transform: translateY(10px);
+        }
+        
+        .nav-link:after
+        {
+            bottom: 0px;
+            transform: translateY(-10px);
+        }
+        
+        .nav-link:hover:before,  .nav-link:hover:after
+        {
+            opacity: 1;
+            transform: translateY(-0px);
+        }
+  .navbar-brand:hover{
+    color: rgb(255, 132, 0);
+  }
+  .navbar-scrolled {
+    background-color: #fff;
+  }
+  .nav-link{
+    font-size:1.5rem;
+    margin-left: 20px;
+    color: white;
+  }
+  .fa-location-crosshairs{
+    color: rgb(255, 254, 254);
+  }
+  /* .fa-location-crosshairs:hover{
+    color: rgb(220, 32, 161);;
+  } */
+
+  /* .p:hover{
+    color: rgb(255, 255, 255);
+  } */
+  .fa-dove{
+    color: rgb(0, 0, 0);
+  }
+  .fa-dove:hover{
+    color: rgb(246, 246, 246);
+  }
+  nav{
+    background-color: #7743DB;
+    height: 110px;
+  }
+ 

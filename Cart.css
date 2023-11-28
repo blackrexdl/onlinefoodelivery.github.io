@@ -1,0 +1,62 @@
+.demo1{
+    background-color: black;
+    color: rgb(0, 0, 0);
+    font-family: taoma;
+    padding: 50px;
+    text-align: center;
+}
+.demo2{
+  padding: 10px;
+  justify-content: space-evenly;
+}
+.card{
+  justify-content: center;
+  padding: 10px;
+  border-radius:  20px;
+
+}
+.card-text {
+  text-decoration: line-through;
+}
+
+.container-fluid1{
+padding-top: px;
+  background-color: #F7EFE5;
+ 
+}
+.col-12{
+background-color: #B799FF;
+}
+
+.fa-cart-shopping{
+  color: yellowgreen;
+}
+.fa-cart-shopping:hover{
+  color: rgb(220, 32, 161);
+}
+.fa-location-crosshairs:hover{
+  color:yellowgreen
+}
+.display-1 {
+  font-weight: 500 !important;
+  letter-spacing: 40px;
+  background-repeat: no-repeat;
+}
+h6{
+ padding: 10%;
+ text-align: center;
+font-family:taoma;
+/* color: ; */
+}
+.p{
+  font-size: 48px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+ margin: auto;
+  font-family:taoma;
+
+  /* background-color:; */
+}
+.col-2{
+  color:  rgb(102, 96, 84);
+}

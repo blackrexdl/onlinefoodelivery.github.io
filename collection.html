@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+      
+      *::-webkit-scrollbar {
+        width: 5px;
+      }
+      
+      *::-webkit-scrollbar-track {
+        background: rgba(0,0,0,.1);
+      }
+      
+      *::-webkit-scrollbar-thumb {
+        background: #bbb;
+        border-radius: 9em;
+      }
+      
+      *::-webkit-scrollbar-thumb:hover {
+        background: #aaa;
+      }
+      
+      body {
+        margin: 0;
+        background: #eee url("http://source.unsplash.com/U9-D7wwurT8/1080x1920") 50% 35%/cover no-repeat padding-box padding-box local;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        line-height: 21px;
+      }
+      
+      h1 {
+        margin: 0;
+        padding: 21px;
+        background: #eb4d4b;
+        color: #fff;
+        font-family: 'Dancing Script', cursive;
+        font-size: 59px;
+        line-height: 63px;
+        text-align: center;
+      }
+      
+      h2 {
+        font-family: 'Dancing Script', cursive;
+        font-size: 37px;
+        line-height: 42px;
+        margin-top: 21px;
+        margin-bottom: 21px;
+      }
+      
+      main {
+        display: flex;
+        margin: 21px auto 0 auto;
+        max-width: 1024px;
+        max-height: calc(100vh - 126px);
+        flex-direction: row;
+      }
+      
+      section {
+        margin: 21px;
+        padding: 0 21px 10px 21px;
+        width: calc(50% - 2px);
+        background: rgba(255,255,255,.7);
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow-y: auto;
+      }
+      
+      #order-list {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0;
+      }
+      
+      table {
+        margin-bottom: 21px;
+        width: 100%;
+        border: none;
+      }
+      
+      table, th, td {
+        border-collapse: collapse;
+      }
+      
+      tr:not(:first-child):not(:last-child) {
+        border-bottom: 1px solid #ddd;
+      }
+      
+      th, td {
+        padding: 4px 6px;
+        text-align: left;
+      }
+      
+      th {
+        background: #ffbe76;
+        color: #fff;
+      }
+      
+      .menu-item {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      .menu-item:last-child {
+        border-bottom: none;
+      }
+      
+      .menu-item h4, .menu-item p {
+        margin: 8px;
+      }
+      
+      .menu-item .price {
+        margin-left: auto;
+      }
+      
+      .qty {
+        margin-right: 8px;
+        padding: 2px 4px;
+        width: 40px;
+      }
+      
+      .add-btn {
+        padding: 6px 10px;
+        background: #6ab04c;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      
+      .del-btn {
+        display: block;
+        text-align: center;
+      }
+      
+      .del-btn:hover { opacity: .75 }
+      
+      .del-btn .fa {
+        color: #eb4d4b; 
+      }
+      
+      #export {
+        margin-top: auto;
+        padding: 3px 5px;
+        background: #eee;
+        border: 1px solid #ddd;
+        align-self: flex-end;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+
+
+    <header>
+      <h1><i class="fa fa-cutlery" aria-hidden="true"></i> Food Ordering Menu</h1>
+    </header>
+    <main>
+      <section id="order-list">
+        <h2>Order(s)</h2>
+        <table id="order-tbl">
+        </table>
+      </section>
+      <section id="menu">
+        <h2>Menu</h2>    
+      </section>
+    </main>
+    <script>
+      // Declare variables
+const menu_container = document.getElementById('menu');
+const order_tbl = document.getElementById('order-tbl');
+const menu = [
+  {
+    name: "Rice with Dal makhni",
+    price: 25
+  },
+  {
+    name: "Rice with Simple dal",
+    price: 25
+  },
+  {
+    name: "Rice with Sahi Paneer",
+    price: 25
+  },
+  {
+    name: "Extra Large Pizza(Extra Cheese)",
+    price: 20
+  },
+  {
+    name: "Crispy Chikken With Fries ",
+    price: 20
+  },
+  {
+    name: "Fried rice with sea food",
+    price: 25
+  },
+  {
+    name: "Fried rice with fried chicken",
+    price: 25
+  },
+  {
+    name: "Fried rice with boiled chicken",
+    price: 25
+  },
+  {
+    name: "Noodles with sea food",
+    price: 30
+  },
+  {
+    name: "Noodles with beef",
+    price: 30
+  },
+  {
+    name: "Perry Perry Fries",
+    price: 30
+  },
+  {
+    name: " Nachos & Fries",
+    price: 0
+  },
+  {
+    name: "Chilli",
+    price: 0
+  }
+];
+var order_list = []; // Create empty oder_list arr
+
+function updateOrderList() {
+  let str = "";
+  var export_btn = document.getElementById('export');
+  
+  if (order_list.length > 0) {
+    // Text align 
+    // str += '<colgroup>';
+    // str += '<col style="text-align: center !important;">';
+    // str += '<col span="3">';
+    // str += '</colgroup>';
+    
+    str += '<tr>';
+    str += '<th>#</th>';
+    str += '<th>Name</th>';
+    str += '<th>Quantity</th>';
+    str += '<th>Action</th>';
+    str += '</tr>';
+    
+    order_list.forEach((item, index) => {
+      str += '<tr>';
+      str += '<td>' + (index + 1) + '</td>';
+      str += '<td>' + menu[item.id].name + '</td>';
+      str += '<td>' + item.quantity + '</td>';
+      str += '<td><a class="del-btn" href="javascript:void(0)" onclick="deleteItem(' + index + ')"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>';
+      str += '</tr>';
+    });
+    // Create export btn if not exist
+    if (!export_btn) {
+      order_tbl.insertAdjacentHTML('afterend', '<button id="export" onclick="exportPDF()">Export PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>');
+    }
+  }
+  else {
+    str += '<tr>';
+    str += '<td style="text-align: center">Your order list is empty</td>';
+    str += '</tr>';
+    if (export_btn) {
+      export_btn.remove();
+    }
+  }
+  
+  order_tbl.innerHTML = str;
+}
+
+function addItem(id) {
+  let qty = document.getElementsByClassName('qty')[id];
+  let qty_val = Number(qty.value); // Cast to Interger
+  // If already exist then increase qty
+  for (let i = 0; i < order_list.length; i++) {
+    if (order_list[i].id == id) {
+      order_list[i].quantity =  order_list[i].quantity + qty_val;
+      updateOrderList();
+      return;
+    }
+  }
+  // If not add new item to the arr
+  order_list.push({id: id, quantity: qty_val});
+  updateOrderList();
+}
+
+function deleteItem(id) {
+  order_list.splice(id, 1); // Remove 1 item at 'id' position
+  updateOrderList();
+}
+
+function exportPDF() {
+  let doc = new jsPDF();
+  doc.text(order_tbl.innerText, 20, 20);
+  doc.save('test.pdf');
+}
+
+// Initialize
+function initApp() {
+  for (let i = 0; i < menu.length; i++) {
+    let str = '<div class="menu-item">';
+    str += '<p class="food-name">' + menu[i].name + '</p>';
+    str += '<p class="price">' + (menu[i].price == 0 ? 'Free' : menu[i].price + 'k') + '</p>';
+    str += '<input class="qty" type="number" name="qty" value="1" min="1" max="100" >';
+    str += '<button class="add-btn" type="button" value="' + i + '" onclick="addItem(' + i +')">ADD</button>';
+    str += '</div>';
+    menu_container.insertAdjacentHTML('beforeend', str);
+  }
+  updateOrderList();
+}
+
+initApp();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>
